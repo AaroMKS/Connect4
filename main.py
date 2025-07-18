@@ -1,4 +1,5 @@
 from game.game import Board
+from game import rules
 def main():
     turn=1
     game=Board()
@@ -12,6 +13,10 @@ def main():
         else:
             turn=1
         game.print_board()
+        if rules.winner(game.grid, move,turn):
+            break
+        if rules.full_board(game.grid):
+            break
 
 if __name__ == "__main__":
     main()
