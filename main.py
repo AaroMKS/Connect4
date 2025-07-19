@@ -2,9 +2,9 @@ from game.game import Board
 from game import rules
 def main():
     # Määritä pelaaja aloittamaan peli
-    turn=1
-    game=Board()
-
+    turn = 1
+    game = Board()
+    print(Board().grid)
     # Aloita loop-jonka aikana pelia pelataan
     while True:
         move=valid() # Tarkasta onko syötetty liike hyväksyttävä
@@ -27,7 +27,7 @@ def valid():
         # Jos siirto on validi, se palautetaan.
         try: 
             move = int(input("Aseta (0-6):"))
-            if move>6 or move<0:    
+            if move > 6 or move < 0:    
                 print("Ei pelilaudalla")
                 continue
             return move

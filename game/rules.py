@@ -1,7 +1,6 @@
 def winner(board, column ,player, row):
-    
     count=0
-    for i in board[row]: # Tarkastetaan onko rivillä neljä vierekkäistä saman pelaajan nappulaa
+    for i in board[row]:     # Tarkastetaan onko rivillä neljä vierekkäistä saman pelaajan nappulaa
         if i==player:
             count+=1
         else:
