@@ -11,4 +11,4 @@ Tietorakenteina käytän hajautustaulua, johon talletetaan edellisellä kierroks
 Ohjelmalle annetaan syötteenä aina numero väliltä 0-6, joka kuvaa saraketta, johon nappula pudotetaan. Tekoäly saa syötteenä pelitilanteen ja vuorossa olevan pelaajan, joiden avulla se laskee parhaan mahdollisen siirron. Molempien siirrot talletetaan pelilautaan.
 Voiton tarkistuksen aikavaatimus on O(1), koska se käy läpi vain rivit, jotka sisältävät edellisen siirron.
 Minimax-algoritmi voi viedä aikaa O(siirtojen määrä*syvyys), mutta tätä voidaan nopeuttaa Alfa-beeta-karsinnalla. Nämä voivat vielä muuttua täysin.
-
+## Lähteet
