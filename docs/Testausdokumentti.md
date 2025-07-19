@@ -1,2 +1,2 @@
 # Testausdokumentti
-Ohjelman perustoimintoja, kuten pelinappulan asettamista ja voittamista testattu pytestillä. 
+On vasta testattu ohjelman perustoimintoja, kuten pelinappulan asettamista pytestillä. 
