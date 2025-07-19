@@ -4,22 +4,31 @@ def main():
     turn=1
     game=Board()
 
-    while  True:
-        #if turn==1:
-        move=int(input("Move:"))
+    while True:
+        move=valid()
+
         row=game.place_piece(move, turn)
-        #print(row)
-        
+        if row == "error":
+            print("Täynnä")
+            continue
         game.print_board()
         if rules.full_board(game.grid):
+            print("Tasapeli")
             break
         if rules.winner(game.grid, move,turn, row):
-            print("voittaja")
+            print("Voittaja")
             break
-        if turn==1:
-            turn=2
-        else:
-            turn=1
+        turn = 3 - turn
 
+def valid():
+    while True:
+        try: 
+            move = int(input("Aseta (0-6):"))
+            if move>6 or move<0:
+                print("Ei pelilaudalla")
+                continue
+            return move
+        except ValueError:
+            print("Ei numero")
 if __name__ == "__main__":
     main()
