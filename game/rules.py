@@ -14,9 +14,29 @@ def winner(board, column ,player, row):
         else:
             count=0
         if count==4:
-            return True       
-
-    
+            return True   
+    count=0
+    placer=-min(3,column, row)    
+    for i in range(column+placer,min(column+4,7)):
+        if row+(i-column) >= 6 or row+(i-column)<0:
+            continue
+        if board[row+(i-column)][i]==player:
+            count+=1
+        else:
+            count=0
+        if count==4:
+            return True 
+    count=0
+    placer=-min(3,column,5-row)    
+    for i in range(column+placer,min(column+4,7)):
+        if row-(i-column) >= 7 or row-(i-column)<0:
+            continue
+        if board[row-(i-column)][i]==player:
+            count+=1
+        else:
+            count=0
+        if count==4:
+            return True 
     return False 
 
 
