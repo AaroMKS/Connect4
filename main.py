@@ -1,5 +1,6 @@
 from game.game import Board
 from game import rules
+from ai.ai import minimax
 def main():
     # Määritä pelaaja aloittamaan peli
     turn = 1
@@ -7,7 +8,11 @@ def main():
     print(Board().grid)
     # Aloita loop-jonka aikana pelia pelataan
     while True:
-        move=valid() # Tarkasta onko syötetty liike hyväksyttävä
+        if turn == 1:
+            move=valid() # Tarkasta onko syötetty liike hyväksyttävä
+        else:
+            move=minimax(game, 4, 2)[1]
+
         row=game.place_piece(move, turn)  # Määritä mille riville nappula tippui
         if row == "error":     # Tarkasta onko sarake täynnä
             print("Täynnä")

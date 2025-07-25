@@ -17,7 +17,7 @@ def winner(board, column ,player, row):
             return True   
     count=0
     placer=-min(3,column, row)    
-    for i in range(column+placer,min(column+4,7)):
+    for i in range(column+placer,min(column+4,7)):   # Tarkastetaan onko diagonaalisesti alhaalta ylös neljä peräkkäistä saman pelaajan nappulaa
         if row+(i-column) >= 6 or row+(i-column)<0:
             continue
         if board[row+(i-column)][i]==player:
@@ -28,7 +28,7 @@ def winner(board, column ,player, row):
             return True 
     count=0
     placer=-min(3,column,5-row)    
-    for i in range(column+placer,min(column+4,7)):
+    for i in range(column+placer,min(column+4,7)):  # Tarkastetaan onko diagonaalisesti ylhäältä alas neljä peräkkäistä saman pelaajan nappulaa
         if row-(i-column) >= 7 or row-(i-column)<0:
             continue
         if board[row-(i-column)][i]==player:

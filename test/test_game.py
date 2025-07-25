@@ -27,3 +27,4 @@ def test_winner_diagonal():
     board.place_piece(3,2)
     board.place_piece(3,1)
     assert winner(board.grid, 3, 1, 2) == True
+

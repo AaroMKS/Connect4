@@ -1,3 +1,4 @@
+
 class Board:
     def __init__(self):
         # Määritetään pelilauta
@@ -17,6 +18,9 @@ class Board:
         return "error"  # Palautetaan "error" jos sarake on täynnä
     def print_board(self):
         # Tulostetaan pelilauta
-        print(self.grid)        
+        for row in self.grid:
+            print(" ".join(str(v) for v in row))
+        print()
+        #print(self.grid)        
     
             
