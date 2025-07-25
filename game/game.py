@@ -19,7 +19,7 @@ class Board:
     def print_board(self):
         # Tulostetaan pelilauta
         for row in self.grid:
-            print(" ".join(str(v) for v in row))
+            print(" ".join(str(i) for i in row))
         print()
         #print(self.grid)        
     

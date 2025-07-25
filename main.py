@@ -11,18 +11,19 @@ def main():
         if turn == 1:
             move=valid() # Tarkasta onko syötetty liike hyväksyttävä
         else:
-            move=minimax(game, 4, 2)[1]
+            move=minimax(game, 4,2, alpha=-99999, beta=99999)[1]
 
         row=game.place_piece(move, turn)  # Määritä mille riville nappula tippui
         if row == "error":     # Tarkasta onko sarake täynnä
             print("Täynnä")
             continue
-        game.print_board()   # Tulosta pelilauta
+        if turn==2:
+            game.print_board()   # Tulosta pelilauta
         if rules.full_board(game.grid):   # Peli päättyy tasapeliin jos lauta on täynnä
             print("Tasapeli")
             break
         if rules.winner(game.grid, move,turn, row):     # Tarkista onko peli voitettu
-            print("Voittaja")
+            print(f"Voittaja: {turn}")
             break
         turn = 3 - turn    # Vaihda pelaajan vuoroa
 

@@ -1,7 +1,7 @@
 from game import rules, game
 from game.game import Board
 import copy
-def minimax(board, depth, alpha, beta, current_player, last_column=None, last_row=None): 
+def minimax(board, depth, current_player, alpha, beta, last_column=None, last_row=None): 
     # Määritetään minimax-algoritmillä paras mahdollinen siirto
     if depth==0 or rules.full_board(board.grid):    # Palauta tekoälyn tai vastustajan voittoa kuvaava arvo jos algoritmin syvyys on 0
         if rules.winner(board.grid, last_column, 2, last_row):
@@ -11,9 +11,10 @@ def minimax(board, depth, alpha, beta, current_player, last_column=None, last_ro
         else:
             return (0, None)
     best_column=None
+    column_order =[3, 2, 4, 1, 5, 0, 6]
     if current_player==2:    
         value=-99999
-        for column in range(7):
+        for column in column_order:
             board_copy=copy.deepcopy(board)  # Tehdään kopio Board-luokasta
             row=board_copy.place_piece(column, current_player)   # Asetetaan jokaiseen kolumniin nappula
             
@@ -30,7 +31,7 @@ def minimax(board, depth, alpha, beta, current_player, last_column=None, last_ro
         return value, best_column
     else:   # Vähennetään arvoa perustuen kuinka hyviä vastustajan siirrot ovat
         value=99999
-        for column in range(7):
+        for column in column_order:
             board_copy=copy.deepcopy(board)
             row=board_copy.place_piece(column, current_player)
             if row=="error":
