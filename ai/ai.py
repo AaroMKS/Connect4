@@ -1,7 +1,7 @@
 from game import rules, game
 from game.game import Board
 import copy
-def minimax(board, depth, current_player, last_column=None, last_row=None): 
+def minimax(board, depth, alpha, beta, current_player, last_column=None, last_row=None): 
     # Määritetään minimax-algoritmillä paras mahdollinen siirto
     if depth==0 or rules.full_board(board.grid):    # Palauta tekoälyn tai vastustajan voittoa kuvaava arvo jos algoritmin syvyys on 0
         if rules.winner(board.grid, last_column, 2, last_row):
@@ -19,11 +19,14 @@ def minimax(board, depth, current_player, last_column=None, last_row=None):
             
             if row=="error":   # Jos kolumni on täynnä palataan loopin alkuun
                 continue
-            new_score=minimax(board_copy,depth-1,1, column, row)[0]   # Funktio kutsuu itseään rekursiivisesti
+            new_score=minimax(board_copy,depth-1,1, alpha, beta, column, row)[0]   # Funktio kutsuu itseään rekursiivisesti
             
             if new_score>value:   # Jos tällä siirrolla saatu uusi arvo on parempi kuin aikaisemmin saatu, valitaan se parhaaksi siirroksi
                 value=new_score
                 best_column=column
+            alpha = max(alpha, value)
+            if alpha >= beta:
+                break
         return value, best_column
     else:   # Vähennetään arvoa perustuen kuinka hyviä vastustajan siirrot ovat
         value=99999
@@ -32,9 +35,12 @@ def minimax(board, depth, current_player, last_column=None, last_row=None):
             row=board_copy.place_piece(column, current_player)
             if row=="error":
                 continue
-            new_score=minimax(board_copy,depth-1,2, column, row)[0] 
+            new_score=minimax(board_copy,depth-1,2, alpha, beta, column, row)[0] 
             if new_score<value:
                 value=new_score
                 best_column=column
+            beta = min(beta, value)
+            if alpha >= beta:
+                break
         return value, best_column
 
