@@ -14,10 +14,11 @@ def winner(board, column ,player, row):
         else:
             count=0
         if count==4:
-            return True   
+            return True
     count=0
-    placer=-min(3,column, row)    
-    for i in range(column+placer,min(column+4,7)):   # Tarkastetaan onko diagonaalisesti alhaalta ylös neljä peräkkäistä saman pelaajan nappulaa
+    placer=-min(3,column, row)
+    for i in range(column+placer,min(column+4,7)):
+        # Tarkastetaan onko diagonaalisesti alhaalta ylös neljä peräkkäistä saman pelaajan nappulaa
         if row+(i-column) >= 6 or row+(i-column)<0:
             continue
         if board[row+(i-column)][i]==player:
@@ -25,10 +26,11 @@ def winner(board, column ,player, row):
         else:
             count=0
         if count==4:
-            return True 
+            return True
     count=0
-    placer=-min(3,column,5-row)    
-    for i in range(column+placer,min(column+4,7)):  # Tarkastetaan onko diagonaalisesti ylhäältä alas neljä peräkkäistä saman pelaajan nappulaa
+    placer=-min(3,column,5-row)
+    for i in range(column+placer,min(column+4,7)):
+        # Tarkastetaan onko diagonaalisesti ylhäältä alas neljä peräkkäistä saman pelaajan nappulaa
         if row-(i-column) >= 7 or row-(i-column)<0:
             continue
         if board[row-(i-column)][i]==player:
@@ -36,14 +38,12 @@ def winner(board, column ,player, row):
         else:
             count=0
         if count==4:
-            return True 
-    return False 
-
+            return True
+    return False
 
 def full_board(board):
-    # Tarkastetaan onko pelilauta täynnä 
+    # Tarkastetaan onko pelilauta täynnä
     for i in board[0]:
         if i==0:
             return False
     return True
-    

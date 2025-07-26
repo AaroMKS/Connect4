@@ -31,9 +31,9 @@ def valid():
     while True:
         # Kysytään käyttäjältä siirtoa ja tarkastetaan onko se väliltä 0-6 ja onko se numero.
         # Jos siirto on validi, se palautetaan.
-        try: 
+        try:
             move = int(input("Aseta (0-6):"))
-            if move > 6 or move < 0:    
+            if move > 6 or move < 0:
                 print("Ei pelilaudalla")
                 continue
             return move

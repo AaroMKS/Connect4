@@ -21,6 +21,3 @@ class Board:
         for row in self.grid:
             print(" ".join(str(i) for i in row))
         print()
-        #print(self.grid)        
-    
-            
