@@ -3,12 +3,8 @@ from game import rules
 def minimax(board, depth, current_player, alpha, beta, last_column=None, last_row=None):
     # Minimax-algoritmi, joka määrittää parhaan siirron
     if depth==0 or rules.full_board(board.grid):
-        # Palauta voittojen mukainen pistemäärä
-        if rules.winner(board.grid, last_column, 2, last_row):
-            return (100, None)
-        if rules.winner(board.grid, last_column, 1, last_row):
-            return (-100, None)
-        return (0, None)
+        # Kutsutaan heuristiikkafunktiota
+        return heuristic_function(board, last_column, last_row)
     best_column=None
     column_order =[3, 2, 4, 1, 5, 0, 6]  # Tutkitaan siirrot keskeltä ulospäin
     if current_player==2:
@@ -42,3 +38,11 @@ def minimax(board, depth, current_player, alpha, beta, last_column=None, last_ro
             if alpha >= beta:
                 break
         return value, best_column
+
+def heuristic_function(board, last_column, last_row):
+    # Palauta pelitilanteen hyvyyttä kuvaava pistemäärä
+    if rules.winner(board.grid, last_column, 2, last_row):
+        return (100, None)
+    if rules.winner(board.grid, last_column, 1, last_row):
+        return (-100, None)
+    return (0, None)

@@ -1,4 +1,3 @@
-
 import unittest
 from game.game import Board
 from ai.ai import minimax
