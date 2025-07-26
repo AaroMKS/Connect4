@@ -1,5 +1,7 @@
 # Testausdokumentti
-On vasta testattu ohjelman perustoimintoja, kuten pelinappulan asettamista pytestillä. 
+## Yksikkötestit
+Yksittötesteissä ollaan käytetty unittest-kirjastoa. Yksikkötesteillä ollaan testattu pelin perusominaisuuksia, kuten nappulan asettamista, voittamista ja tekoälyn perustomintoja. 
 
 #### Testikattavuusraportti
-<img width="1004" height="230" alt="image" src="https://github.com/user-attachments/assets/9e359f3e-f5f9-44a4-9e6c-077a389bc961" />
+<img width="1534" height="536" alt="image" src="https://github.com/user-attachments/assets/cffa57bb-666b-410e-a212-d4d17ba2265e" />
+
