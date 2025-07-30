@@ -5,7 +5,7 @@ def main():
     # Määritä pelaaja aloittamaan peli
     turn = 1
     game = Board()
-    print(Board().grid)
+    game.print_board()
     # Aloita loop-jonka aikana pelia pelataan
     while True:
         if turn == 1:
@@ -23,6 +23,7 @@ def main():
             print("Tasapeli")
             break
         if rules.winner(game.grid, move,turn, row):     # Tarkista onko peli voitettu
+            game.print_board()
             print(f"Voittaja: {turn}")
             break
         turn = 3 - turn    # Vaihda pelaajan vuoroa
