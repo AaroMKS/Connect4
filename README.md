@@ -3,6 +3,8 @@
 [Vikkoraportti 2](docs/viikkoraportit/viikkoraportti2.md)
 
 [Vikkoraportti 3](docs/viikkoraportit/viikkoraportti3.md)
+
+[Vikkoraportti 4](docs/viikkoraportit/viikkoraportti4.md)
 ## Dokumentaatio
 [Määrittelydokumentti](docs/maarittelydokumentti.md)
 
