@@ -2,6 +2,13 @@ import copy
 from game import rules
 def minimax(board, depth, current_player, alpha, beta, last_column=None, last_row=None):
     # Minimax-algoritmi, joka määrittää parhaan siirron
+    if last_column is not None and last_row is not None:
+        if rules.winner(board.grid, last_column, 2, last_row):
+            return (100 - depth*5, None)
+        if rules.winner(board.grid, last_column, 1, last_row):
+            return (-100 + depth*5, None)
+    if rules.full_board(board.grid):
+        return (0, None)
     if depth==0 or rules.full_board(board.grid):
         # Kutsutaan heuristiikkafunktiota
         return heuristic_function(board, last_column, last_row, depth)
@@ -45,29 +52,31 @@ def heuristic_function(board, last_column, last_row, depth):
         return (100-depth*5, None)
     if rules.winner(board.grid, last_column, 1, last_row):
         return (-100+depth*5, None)
-    if three_row(board.grid, last_column, 2, last_row):
+    if three_row(board.grid, last_column, 2, last_row, 3):
         return (10-depth*2, None)
-    if three_row(board.grid, last_column, 1, last_row):
+    if three_row(board.grid, last_column, 1, last_row, 3):
         return (-10+depth*2, None)
     return (0, None)
 
-def three_row(board, column, player, row):
+def three_row(board, column, player, row, size):
     count=0
-    for i in board[row]:     # Tarkastetaan onko rivillä neljä vierekkäistä saman pelaajan nappulaa
-        if i==player:
+    for i in range(len(board[0])):     # Tarkastetaan onko rivillä neljä vierekkäistä saman pelaajan nappulaa
+        if board[row][i]==player:
             count+=1
         else:
             count=0
-        if count==3:
-            return True
+        if count==size:
+            if i-size>=0 and board[row][i-size]==0 and i+1<7 and board[row][i+1]==0:
+                return True
     count=0
-    for i in board:  # Tarkastetaan onko sarakkeella neljä päällekkäistä saman pelaajan nappulaa
-        if i[column]==player:
+    for i in range(len(board)):  # Tarkastetaan onko sarakkeella neljä päällekkäistä saman pelaajan nappulaa
+        if board[i][column]==player:
             count+=1
         else:
             count=0
-        if count==3:
-            return True
+        if count==size:
+            if i-size>=0 and i<5 and board[i-size][column]==0 and board[i+1][column]==0:
+                return True
     count=0
     placer=-min(3,column, row)
     for i in range(column+placer,min(column+4,7)):
@@ -78,8 +87,9 @@ def three_row(board, column, player, row):
             count+=1
         else:
             count=0
-        if count==3:
-            return True
+        if count==size:
+            if i-size>=0 and i+1<7 and row+(i-column)-size>=0 and row+(i-column)+1<6 and board[row+(i-column)-size][i-size]==0 and board[row+(i-column)+1][i+1]==0:
+                return True
     count=0
     placer=-min(3,column,5-row)
     for i in range(column+placer,min(column+4,7)):
@@ -90,7 +100,7 @@ def three_row(board, column, player, row):
             count+=1
         else:
             count=0
-        if count==3:
-            return True
+        if count==size:
+            if i-size>=0 and i+1<7 and row-(i-column)<5 and row-(i-column)-size>=0 and board[row-(i-column)-size][i-size]==0 and board[row-(i-column)+1][i+1]==0:
+                return True
     return False
-    pass

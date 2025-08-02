@@ -11,7 +11,7 @@ def main():
         if turn == 1:
             move=valid() # Tarkasta onko syötetty liike hyväksyttävä
         else:
-            move=minimax(game, 4,2, alpha=-99999, beta=99999)[1]
+            move=minimax(game, 10,2, alpha=-99999, beta=99999)[1]
 
         row=game.place_piece(move, turn)  # Määritä mille riville nappula tippui
         if row == "error":     # Tarkasta onko sarake täynnä
