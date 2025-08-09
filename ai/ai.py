@@ -16,13 +16,16 @@ def iterative(game, max_depth=5, time_limit=3.0):
     return best_value,best_column
 
 def minimax(board, depth, current_player, alpha, beta, last_column=None, last_row=None):
+    
     # Minimax-algoritmi, joka määrittää parhaan siirron
+
     if last_column is not None and last_row is not None:
         if rules.winner(board.grid, last_column, 3-current_player, last_row):
+            
             if current_player==1:
-                return (10000 - depth*500, None)
+                return (100000 - depth*1000, None)
             else:
-                return (-10000 + depth*500, None)
+                return (-100000 + depth*1000, None)
         #if rules.winner(board.grid, last_column, 3-current_player, last_row):
             
     if rules.full_board(board.grid):
@@ -30,6 +33,7 @@ def minimax(board, depth, current_player, alpha, beta, last_column=None, last_ro
     if depth==0 or rules.full_board(board.grid):
         # Kutsutaan heuristiikkafunktiota
         return heuristic_function(board, last_column, last_row, depth)
+
     best_column=None
     column_order =[3, 2, 4, 1, 5, 0, 6]  # Tutkitaan siirrot keskeltä ulospäin
     if current_player==2:
