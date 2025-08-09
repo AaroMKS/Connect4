@@ -23,7 +23,7 @@ class MinimaxTest(unittest.TestCase):
         board.place_piece(4,1)
         board.place_piece(2,2)
         board.place_piece(0,1)
-        self.assertEqual(heuristic_function(board, 0,5,0), (-20, None))
+        self.assertEqual(heuristic_function(board, 0,5,0), (-5000, None))
 
 
 

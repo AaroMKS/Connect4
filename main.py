@@ -1,6 +1,6 @@
 from game.game import Board
 from game import rules
-from ai.ai import minimax
+from ai.ai import minimax, iterative
 def main():
     # Määritä pelaaja aloittamaan peli
     turn = 1
@@ -11,7 +11,7 @@ def main():
         if turn == 1:
             move=valid() # Tarkasta onko syötetty liike hyväksyttävä
         else:
-            move=minimax(game, 10,2, alpha=-99999, beta=99999)[1]
+            move=iterative(game)[1]
 
         row=game.place_piece(move, turn)  # Määritä mille riville nappula tippui
         if row == "error":     # Tarkasta onko sarake täynnä
