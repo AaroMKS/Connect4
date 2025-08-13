@@ -26,11 +26,10 @@ def minimax(board, depth, current_player, alpha, beta, last_column=None, last_ro
                 return (100000 - depth*1000, None)
             else:
                 return (-100000 + depth*1000, None)
-        #if rules.winner(board.grid, last_column, 3-current_player, last_row):
             
     if rules.full_board(board.grid):
         return (0, None)
-    if depth==0 or rules.full_board(board.grid):
+    if depth==0:
         # Kutsutaan heuristiikkafunktiota
         return heuristic_function(board, last_column, last_row, depth)
 
@@ -70,66 +69,76 @@ def minimax(board, depth, current_player, alpha, beta, last_column=None, last_ro
 
 def heuristic_function(board, last_column, last_row, depth):
     # Palauta pelitilanteen hyvyyttä kuvaava pistemäärä
-
     if rules.winner(board.grid, last_column, 2, last_row):
         return (100000-depth*1000, None)
     if rules.winner(board.grid, last_column, 1, last_row):
         return (-100000+depth*1000, None)
-    if pieces_in_row(board.grid, 2, 3):
-        return (5000-depth*50, None)
-    if pieces_in_row(board.grid, 1,3):
+    if pieces_in_row(board.grid, 2, 3, last_column, last_row):
+        return (5000-depth*50, None, )
+    if pieces_in_row(board.grid, 1,3, last_column, last_row):
         return (-5000+depth*50, None)
-    if pieces_in_row(board.grid, 2, 2):
+    if pieces_in_row(board.grid, 2, 2, last_column, last_row):
         return (100-depth*2, None)
-    if pieces_in_row(board.grid, 1, 2):
+    if pieces_in_row(board.grid, 1, 2, last_column, last_row):
         return (-100+depth*2, None)
     return (0, None)
 
-def pieces_in_row(board, player, size):
-    for row in range(len(board)):
-        for column in range(len(board[0])):
+def pieces_in_row(board, player, size, column, row):
+    count=0
+    for i in range(len(board[0])):     # Tarkastetaan onko rivillä neljä vierekkäistä saman pelaajan nappulaa
+        if board[row][i]==player:
+            count+=1
+        else:
             count=0
-            for i in range(len(board[0])):     # Tarkastetaan onko rivillä neljä vierekkäistä saman pelaajan nappulaa
-                if board[row][i]==player:
-                    count+=1
-                else:
-                    count=0
-                if count==size:
-                    if (i-size>=0 and board[row][i-size]==0) or (i+1<len(board[0]) and board[row][i+1]==0):
-                        return True
+        if count==size:
+            if size==4:
+                return True
+            else:
+                if (i-size>=0 and board[row][i-size]==0) or (i+1<len(board[0]) and board[row][i+1]==0):
+                    return True
+    
+    count=0
+    for i in range(len(board)):  # Tarkastetaan onko sarakkeella neljä päällekkäistä saman pelaajan nappulaa
+        if board[i][column]==player:
+            count+=1
+        else:
             count=0
-            for i in range(len(board)):  # Tarkastetaan onko sarakkeella neljä päällekkäistä saman pelaajan nappulaa
-                if board[i][column]==player:
-                    count+=1
-                else:
-                    count=0
-                if count==size:
-                    if i<len(board)-1 and board[i+1][column]==0:
-                        return True
+        if count==size:
+            if size==4:
+                return True
+            else:
+                if i<len(board)-1 and board[i+1][column]==0:
+                    return True
+    count=0
+    placer=-min(3,column, row)
+    for i in range(column+placer,min(column+4,len(board[0]))):
+        # Tarkastetaan onko diagonaalisesti alhaalta ylös neljä peräkkäistä saman pelaajan nappulaa
+        if row+(i-column) >= len(board) or row+(i-column)<0:
+            continue
+        if board[row+(i-column)][i]==player:
+            count+=1
+        else:
             count=0
-            placer=-min(3,column, row)
-            for i in range(column+placer,min(column+4,len(board[0]))):
-                # Tarkastetaan onko diagonaalisesti alhaalta ylös neljä peräkkäistä saman pelaajan nappulaa
-                if row+(i-column) >= len(board) or row+(i-column)<0:
-                    continue
-                if board[row+(i-column)][i]==player:
-                    count+=1
-                else:
-                    count=0
-                if count==size:
-                    if (i-size>=0 and row+(i-column)-size>=0 and board[row+(i-column)-size][i-size]==0) or (i+1<len(board[0]) and row+(i-column)+1<len(board) and board[row+(i-column)+1][i+1]==0):
-                        return True
+        if count==size:
+            if size==4:
+                return True
+            else:
+                if (i-size>=0 and row+(i-column)-size>=0 and board[row+(i-column)-size][i-size]==0) or (i+1<len(board[0]) and row+(i-column)+1<len(board) and board[row+(i-column)+1][i+1]==0):
+                    return True
+    count=0
+    placer=-min(3,column,len(board)-1-row)
+    for i in range(column+placer,min(column+4,len(board[0]))):
+        # Tarkastetaan onko diagonaalisesti ylhäältä alas neljä peräkkäistä saman pelaajan nappulaa
+        if row-(i-column) >= len(board) or row-(i-column)<0:
+            continue
+        if board[row-(i-column)][i]==player:
+            count+=1
+        else:
             count=0
-            placer=-min(3,column,len(board)-1-row)
-            for i in range(column+placer,min(column+4,len(board[0]))):
-                # Tarkastetaan onko diagonaalisesti ylhäältä alas neljä peräkkäistä saman pelaajan nappulaa
-                if row-(i-column) >= len(board) or row-(i-column)<0:
-                    continue
-                if board[row-(i-column)][i]==player:
-                    count+=1
-                else:
-                    count=0
-                if count==size:
-                    if (i-size>=0 and row-(i-column)-size>=0 and board[row-(i-column)-size][i-size]==0) or (i+1<len(board[0]) and row-(i-column)<len(board)-1 and board[row-(i-column)+1][i+1]==0):
-                        return True
+        if count==size:
+            if size==4:
+                return True
+            else:
+                if (i-size>=0 and row-(i-column)-size>=0 and board[row-(i-column)-size][i-size]==0) or (i+1<len(board[0]) and row-(i-column)<len(board)-1 and board[row-(i-column)+1][i+1]==0):
+                    return True
     return False
