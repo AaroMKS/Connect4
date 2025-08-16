@@ -1,5 +1,5 @@
 import unittest
-from game import Board
+from game.game import Board
 from ai.ai import minimax, heuristic_function
 
 
