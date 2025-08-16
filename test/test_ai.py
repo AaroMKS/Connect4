@@ -1,6 +1,8 @@
 import unittest
-from game.game import Board
+from game import Board
 from ai.ai import minimax, heuristic_function
+
+
 class MinimaxTest(unittest.TestCase):
     def test_avoiding_losing(self):
         board=Board()
@@ -35,6 +37,8 @@ class MinimaxTest(unittest.TestCase):
         board.place_piece(2,2)
         board.place_piece(0,1)
         self.assertEqual(heuristic_function(board, 0,5,0), (-5000, None))
+
+
 
 
 

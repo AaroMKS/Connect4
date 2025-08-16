@@ -2,11 +2,12 @@ import copy
 from game import rules
 import time
 
-def iterative(game, max_depth=5, time_limit=3.0):
+def iterative(board, max_depth=5, time_limit=3.0):
+    board.dictionary = {}
     first=time.time()
     best_column= None
     for depth in range(1, max_depth+1):
-        value,column =minimax(game, depth, 2,alpha=-99999, beta=99999)
+        value,column =minimax(board, depth, 2,alpha=-99999, beta=99999)
         if column is not None:
             best_column =column
             best_value=value
@@ -35,6 +36,10 @@ def minimax(board, depth, current_player, alpha, beta, last_column=None, last_ro
 
     best_column=None
     column_order =[3, 2, 4, 1, 5, 0, 6]  # Tutkitaan siirrot keskeltä ulospäin
+    board_str=",".join(",".join(str(number) for number in row) for row in board.grid)
+    if board_str in board.dictionary:
+        column_order.remove(board.dictionary[board_str])
+        column_order.insert(0, board.dictionary[board_str])
     if current_player==2:
         value=-99999
         for column in column_order:
@@ -50,6 +55,7 @@ def minimax(board, depth, current_player, alpha, beta, last_column=None, last_ro
             alpha = max(alpha, value)
             if alpha >= beta:   #Alfa-beeta karsinta
                 break
+        board.dictionary[",".join(",".join(str(number) for number in row) for row in board.grid)]=best_column   
         return value, best_column
     else:
         value=99999
@@ -65,6 +71,7 @@ def minimax(board, depth, current_player, alpha, beta, last_column=None, last_ro
             beta = min(beta, value)
             if alpha >= beta:
                 break
+        board.dictionary[",".join(",".join(str(number) for number in row) for row in board.grid)]=best_column
         return value, best_column
 
 def heuristic_function(board, last_column, last_row, depth):

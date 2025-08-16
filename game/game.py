@@ -8,6 +8,7 @@ class Board:
         [0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0],]
+        self.dictionary={}
 
     def place_piece(self, x, player):
         # Asetetaan pelinappula pelilaudalle
