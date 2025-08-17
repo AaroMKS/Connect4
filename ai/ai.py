@@ -92,17 +92,17 @@ def minimax(board, depth, current_player,first, time_limit, alpha, beta, last_co
 
 def heuristic_function(board, last_column, last_row, depth, current_player):
     # Palauta pelitilanteen hyvyyttä kuvaava pistemäärä
-    if rules.winner(board.grid, last_column, current_player, last_row):
+    if rules.winner(board.grid, last_column, 2, last_row):
         return (100000-depth*1000, last_column)
-    if rules.winner(board.grid, last_column, 3-current_player, last_row):
+    if rules.winner(board.grid, last_column, 1, last_row):
         return (-100000+depth*1000, last_column)
-    if pieces_in_row(board.grid, current_player, 3, last_column, last_row):
+    if pieces_in_row(board.grid, 2, 3, last_column, last_row):
         return (5000-depth*50, last_column)
-    if pieces_in_row(board.grid, 3-current_player,3, last_column, last_row):
+    if pieces_in_row(board.grid, 1,3, last_column, last_row):
         return (-5000+depth*50, last_column)
-    if pieces_in_row(board.grid, current_player, 2, last_column, last_row):
+    if pieces_in_row(board.grid, 2, 2, last_column, last_row):
         return (100-depth*2, last_column)
-    if pieces_in_row(board.grid, 3-current_player, 2, last_column, last_row):
+    if pieces_in_row(board.grid, 1, 2, last_column, last_row):
         return (-100+depth*2, last_column)
     return (0, None)
 
