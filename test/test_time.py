@@ -24,11 +24,11 @@ def test_time_limits():
     board.place_piece(3, 2)
     board.place_piece(0, 1)
     board.place_piece(0, 2)
-    for t in [0.5, 1.0, 2.0, 3.0]:
+    for i in [0.5, 1.0, 2.0, 3.0]:
         start = time.time()
-        value, column = iterative(board,2, max_depth=20, time_limit=t)
+        value, column = iterative(board,2, max_depth=20, time_limit=i)
         duration = time.time() - start
-        print(f"Aikaraja {t:.1f}s: paras siirto = {column}, arvo = {value}, kesti = {duration:.3f} s")
+        print(f"Aikaraja {i:.1f}s: paras siirto = {column}, arvo = {value}, kesti = {duration:.3f} s")
 
 
 if __name__ == "__main__":
