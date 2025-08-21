@@ -16,4 +16,6 @@
 
 [Toteutusdokumentti](docs/Toteutusdokumentti.md)
 
+[Käyttöohje](docs/Käyttöohje.md)
+
 ## Projektin asentaminen
