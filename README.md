@@ -15,3 +15,5 @@
 [Testausdokumentti](docs/Testausdokumentti.md)
 
 [Toteutusdokumentti](docs/Toteutusdokumentti.md)
+
+## Projektin asentaminen
