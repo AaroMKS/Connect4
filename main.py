@@ -11,7 +11,7 @@ def main():
         if turn == 1:
             move=valid() # Tarkasta onko syötetty liike hyväksyttävä
         else:
-            move=iterative(game, turn, max_depth=5, time_limit=3.0)[1]
+            move=iterative(game, turn, max_depth=8, time_limit=3.0)[1]
 
         row=game.place_piece(move, turn)  # Määritä mille riville nappula tippui
         if row == "error":     # Tarkasta onko sarake täynnä

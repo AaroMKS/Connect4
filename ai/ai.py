@@ -17,15 +17,16 @@ def iterative(board, current_player, max_depth, time_limit):
     return best_value,best_column
 
 def minimax(board, depth, current_player,first, time_limit, alpha, beta, last_column=None, last_row=None):
+    # Minimax-algoritmi, joka määrittää parhaan siirron
     best_column = None
     if current_player == 2:
         value = -99999 
     else:
         value = 99999
     
-    # Minimax-algoritmi, joka määrittää parhaan siirron
+    
     if last_column is not None and last_row is not None:
-        if rules.winner(board.grid, last_column, 3-current_player, last_row):
+        if pieces_in_row(board.grid, 3-current_player, 4, last_column, last_row):
             
             if current_player==1:
                 return (100000 - depth*1000, last_column)
@@ -36,12 +37,11 @@ def minimax(board, depth, current_player,first, time_limit, alpha, beta, last_co
         return (0, None)
     if depth==0:
         # Kutsutaan heuristiikkafunktiota
-        if last_column==None:
-            last_column=-1
-        if last_row==None:
-            last_row=-1
+        #if last_column==None:
+            #last_column=-1
+        #last_row=-1
         
-        return heuristic_function(board, last_column, last_row, depth, current_player)
+        return heuristic_function(board, last_column, last_row, depth)
 
     column_order =[3, 2, 4, 1, 5, 0, 6]  # Tutkitaan siirrot keskeltä ulospäin
     board_str=",".join(",".join(str(number) for number in row) for row in board.grid)
@@ -77,8 +77,7 @@ def minimax(board, depth, current_player,first, time_limit, alpha, beta, last_co
             board_copy=copy.deepcopy(board)
             row=board_copy.place_piece(column, current_player)
             if row=="error":
-                continue
-            
+                continue 
             new_score=minimax(board_copy,depth-1,2,first, time_limit, alpha, beta, column, row)[0]
             if new_score<value:
                 value=new_score
@@ -90,11 +89,11 @@ def minimax(board, depth, current_player,first, time_limit, alpha, beta, last_co
             board.dictionary[board_str]=best_column
         return value, best_column
 
-def heuristic_function(board, last_column, last_row, depth, current_player):
+def heuristic_function(board, last_column, last_row, depth):
     # Palauta pelitilanteen hyvyyttä kuvaava pistemäärä
-    if rules.winner(board.grid, last_column, 2, last_row):
+    if pieces_in_row(board.grid, 2, 4, last_column, last_row):
         return (100000-depth*1000, last_column)
-    if rules.winner(board.grid, last_column, 1, last_row):
+    if pieces_in_row(board.grid, 1, 4, last_column, last_row):
         return (-100000+depth*1000, last_column)
     if pieces_in_row(board.grid, 2, 3, last_column, last_row):
         return (5000-depth*50, last_column)
