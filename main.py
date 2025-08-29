@@ -1,6 +1,6 @@
 from game.game import Board
 from game import rules
-from ai.ai import minimax, iterative
+from ai.ai import iterative
 def main():
     # Määritä pelaaja aloittamaan peli
     turn = 1
