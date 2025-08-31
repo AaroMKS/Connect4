@@ -1,4 +1,5 @@
-Kloona ensin repositorio
+Kloona ensin repositorio koneellesi.
+
 Lataa riippuvuudet
 ```
 poetry install
