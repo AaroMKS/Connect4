@@ -92,6 +92,6 @@ Time limit 3.0s: best column=3, took=3.011s
 ## Testikattavuusraportti
 <img width="814" height="222" alt="image" src="https://github.com/user-attachments/assets/a424ce38-b21c-4d69-ac2c-7da9a1ddd0ae" />
 
-ai.py ei ole täsin 100%, koska loppujen kohtien oikeellisuuden näki jo siitä että funktio toimi halutulla tavalla. 
+ai.py ei ole täsin 100%, koska loppujen kohtien testaus oli hieman hankalaa ja oikeellisuuden näki monissa jo siitä että funktio toimi halutulla tavalla. 
 
 
