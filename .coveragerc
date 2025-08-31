@@ -1,7 +1,5 @@
 [run]
-source =
-    game
-    ai
+source = game
 omit =
     */__init__.py
     tests/*
