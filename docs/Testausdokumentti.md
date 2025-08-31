@@ -2,7 +2,7 @@
 
 
 ## Yleisesti
-Tekoälyä vastaan on pelattu kymmeniä otteluja. Testattu erilaisia pelistrategioita ja testattu estääkö tekoäly voittoyritykset. Tekoälyn voittaminen on tällä hetkellä hyvin hankalaa, sillä tekoäly estää kaikki voittoyritykset hyvin tehokkaasti. Kokeiltu myös pelata omituisilla ja epäloogisilla strategioilla. 
+Tekoälyä vastaan on pelattu hyvin monia otteluja. Testattu erilaisia pelistrategioita ja testattu estääkö tekoäly voittoyritykset. Katsottu pelaako tekoäly ideaalisti ottaen varmat voitot ja luoden hyviä voittopiakkoja. Tekoälyn voittaminen on tällä hetkellä hyvin hankalaa, sillä tekoäly estää kaikki voittoyritykset hyvin tehokkaasti. Kokeiltu myös pelata omituisilla ja epäloogisilla strategioilla. 
 
 ## Peurstoimintojen testaus
 Ohjelman perustoimintoja ollaan testattu tiedostossa test_game.py.
@@ -48,5 +48,6 @@ Testattu että tekoäly ei valitse kolumnia joka on täynnä
 
 
 #### Testikattavuusraportti
-<img width="1534" height="536" alt="image" src="https://github.com/user-attachments/assets/cffa57bb-666b-410e-a212-d4d17ba2265e" />
+<img width="814" height="222" alt="image" src="https://github.com/user-attachments/assets/a424ce38-b21c-4d69-ac2c-7da9a1ddd0ae" />
+
 
