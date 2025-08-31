@@ -16,7 +16,7 @@ Deepcopy on hyvin hidas ja vie paljon tilaa, joten minimaxissa pelinappuloiden s
 ## Laajojen kielimallien käyttö
 
 Käytetty ChatGPT-tekoälyä selittämään ohjeita yksinkertaisemmin, auttamaan komentorivin käytössä, githubin käytössä, selittämään käsitteitä,
-kuten poetry ja auttamaan pääsemään ohjelman kehityksessä alkuun.
+kuten poetry ja auttamaan pääsemään ohjelman kehityksessä alkuun. Testikattavuusraportti ei päässyt aivan 100%. Testejä olisi voinut tehdä enemmän ja monipuolisemmin.
 
 ## Lähteet
 https://roboticsproject.readthedocs.io/en/latest/ConnectFourAlgorithm.html
