@@ -48,10 +48,43 @@ Testattu että tekoäly ei valitse kolumnia joka on täynnä
 Iterativiisen syvenemisen testaus on tiedostossa test_time.py.
 
 Testattu minimaxia eri syvyksiillä ja katsottu paljon aikaa siihen menee.
--Käyty läpi syvyydet 1-10, kutsuttu iterative funktiota tällä syvyydellä ja laskettu siihen kulunut aika. Samalla myös testattiin heuristiikka-arvon muuttumista syvyyden kasvaessa.
+-Käyty läpi syvyydet 1-9, kutsuttu iterative funktiota tällä syvyydellä ja laskettu siihen kulunut aika. Samalla myös testattiin heuristiikka-arvon muuttumista syvyyden kasvaessa.
+
+Tämä palauttaa arvot:
+
+1 3 5000 0.0
+
+2 1 -100 0.0
+
+3 2 5000 0.006177425384521484
+
+4 3 -100 0.009221792221069336
+
+5 3 5000 0.031735897064208984
+
+6 3 -100 0.07682180404663086
+
+7 3 5000 0.4119851589202881
+
+8 3 -100 1.0381157398223877
+
+9 3 5000 10.007506132125854
 
 Testattu toimivatko eri aikarajat ja kestääkö iterative funktion suorituksessa todella enintään aikarajan verran
--testattu aikarajoilla 0.5, 1.0, 2.0, 3.0. Luotu pelitilanne ja kutsuttu iterative funktiota ja mitattu tähän kuluva aika. 
+-testattu aikarajoilla 0.5, 1.0, 2.0, 3.0. Luotu pelitilanne ja kutsuttu iterative funktiota ja mitattu tähän kuluva aika.
+
+Tämä palauttaa arvot:
+
+Time limit 0.5s: best column=3, took=0.514s
+
+Time limit 1.0s: best column=3, took=1.002s
+
+Time limit 2.0s: best column=3, took=2.006s
+
+Time limit 3.0s: best column=3, took=3.011s
+
+
+
 
 
 #### Testikattavuusraportti
