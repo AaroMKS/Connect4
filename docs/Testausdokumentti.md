@@ -44,7 +44,14 @@ Testattu heuristiikkafunktion palauttamia arvoja
 Testattu että tekoäly ei valitse kolumnia joka on täynnä
 -täytetty rivi 0 ja katsottu palauttaako minimax saman rivin
 
+# Aikojen testaus
+Iterativiisen syvenemisen testaus on tiedostossa test_time.py.
 
+Testattu minimaxia eri syvyksiillä ja katsottu paljon aikaa siihen menee.
+-Käyty läpi syvyydet 1-10, kutsuttu iterative funktiota tällä syvyydellä ja laskettu siihen kulunut aika. Samalla myös testattiin heuristiikka-arvon muuttumista syvyyden kasvaessa.
+
+Testattu toimivatko eri aikarajat ja kestääkö iterative funktion suorituksessa todella enintään aikarajan verran
+-testattu aikarajoilla 0.5, 1.0, 2.0, 3.0. Luotu pelitilanne ja kutsuttu iterative funktiota ja mitattu tähän kuluva aika. 
 
 
 #### Testikattavuusraportti
