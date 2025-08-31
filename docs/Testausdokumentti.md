@@ -44,7 +44,9 @@ Testattu heuristiikkafunktion palauttamia arvoja
 Testattu että tekoäly ei valitse kolumnia joka on täynnä
 -täytetty rivi 0 ja katsottu palauttaako minimax saman rivin
 
-# Aikojen testaus
+Tehty integraatiotesti, jossa testattu nappuloiden laittamista, iterative-funktion kutsumista, onko palautettu peliliike sallittu ja onko se asetettu pelilaudalle oikein.
+
+## Aikojen testaus
 Iterativiisen syvenemisen testaus on tiedostossa test_time.py.
 
 Testattu minimaxia eri syvyksiillä ja katsottu paljon aikaa siihen menee.
@@ -87,7 +89,9 @@ Time limit 3.0s: best column=3, took=3.011s
 
 
 
-#### Testikattavuusraportti
+## Testikattavuusraportti
 <img width="814" height="222" alt="image" src="https://github.com/user-attachments/assets/a424ce38-b21c-4d69-ac2c-7da9a1ddd0ae" />
+
+ai.py ei ole täsin 100%, koska loppujen kohtien oikeellisuuden näki jo siitä että funktio toimi halutulla tavalla. 
 
 
