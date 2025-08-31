@@ -19,3 +19,18 @@
 [Käyttöohje](docs/Käyttöohje.md)
 
 ## Projektin asentaminen
+
+Kloona ensin repositorio koneellesi.
+
+Lataa riippuvuudet
+```
+poetry install
+```
+Aktivoi virtuaaliympäristö 
+```
+poetry shell
+```
+Suorita ohjelma komennolla 
+```
+poetry run python main.py
+```
