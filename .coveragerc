@@ -1,0 +1,7 @@
+[run]
+source=game
+ai
+omit =
+    */__init__.py
+    test/*
+    main.py
