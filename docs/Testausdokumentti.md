@@ -44,6 +44,8 @@ Testattu heuristiikkafunktion palauttamia arvoja
 Testattu että tekoäly ei valitse kolumnia joka on täynnä
 -täytetty rivi 0 ja katsottu palauttaako minimax saman rivin
 
+Tehty integraatiotesti, jossa testattu nappuloiden laittamista, iterative-funktion kutsumista, onko palautettu peliliike sallittu ja onko se asetettu pelilaudalle oikein.
+
 # Aikojen testaus
 Iterativiisen syvenemisen testaus on tiedostossa test_time.py.
 
