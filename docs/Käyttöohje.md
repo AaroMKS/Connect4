@@ -4,6 +4,10 @@ Lataa riippuvuudet
 ```
 poetry install
 ```
+Aktivoi virtuaaliympäristö 
+```
+poetry shell
+```
 Suorita ohjelma komennolla 
 ```
 poetry run python main.py
