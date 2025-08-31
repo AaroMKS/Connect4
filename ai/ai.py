@@ -4,72 +4,111 @@ from game import rules
 
 
 def iterative(board, current_player, max_depth, time_limit):
+    '''
+    Suorittaa iteratiivisen syvenevän haun minimaxin avulla anetulla aikarajalla.
+    Funktio kokeilee hakusyvyyksiä max_depth asti ja kutsuu aina minimaxia.
+
+    Parametrit: 
+        board: Pelilauta-luokka, jossa nykyinen pelitilanne
+        current_player: Pelaaja, jonka vuoro (1 tai 2)
+        max_depth: Suurin mahdollinen hakusyvyys
+        time_limit: Aikaraja sekunteinta, jolloin haku keskeytetään
+    Palauttaa tuplen, jossa:
+        best_value: Paras löydetty heuristinen pistemäärä
+        best_column: Paras löydetty sarake, johon kannattaa tehdä siirto
+    '''
     board.dictionary = {}
-    first = time.time()
+    start = time.time()
     best_column = None
     for depth in range(1, max_depth+1):
-        if time.time()-first > time_limit:
+        if time.time()-start > time_limit:
             break
-        value,column =minimax(board, depth, current_player, first, time_limit, alpha=-99999, beta=99999)
+        value,column =minimax(board, depth, current_player, start, time_limit, alpha=-99999, beta=99999)
         if column is None:
             break
         best_value = value
         best_column = column
     return best_value, best_column
 
-def minimax(board, depth, current_player, first, time_limit, alpha, beta, last_column=None, last_row=None):
-    # Minimax-algoritmi, joka määrittää parhaan siirron
+def minimax(board, depth, current_player, start, time_limit, alpha, beta, last_column=None, last_row=None):
+    ''' 
+    Suorittaa Minimax-algoritmin
+
+    Parametrit:
+        board: Pelilauta-luokka, jossa nykyinen pelitilanne
+        depth: Kuinka paljon siirtoyvyyttä jäljellä
+        current_player: Pelaaja, jonka vuoro (1 tai 2)
+        start: Iteratiivisen haun aloitusaika
+        time_limit: Aikaraja sekunteinta, jolloin haku keskeytetään
+        alpha: Alfa-arvo alfa-beeta-karsinnassa (maksimoija)
+        beta: Beta-arvo alfa-beeta-karsinnassa (minimoija)
+        last_column: Viimeksi pelatun siirron sarake
+        last_row: Viimeksi pelatun siirron rivi
+    Palauttaa tuplen jossa: 
+            best_value: Paras löydetty heuristinen pistemäärä
+            best_column: Paras löydetty sarake, johon kannattaa tehdä siirto
+      
+        '''
     best_column = None
-    if current_player == 2:
-        value = -9999
-    else:
-        value = 9999
+    # Tarkastetaan johtiko viimeisin siirto voittoon
     if last_column is not None and last_row is not None:
         if pieces_in_row(board.grid, 3-current_player, 4, last_column, last_row):
-            #print("Detected win by", 3-current_player, "at column", last_column, "row", last_row)
-            winner = current_player
-            if winner == 1:
+            if current_player == 1:
                 return (100000 - depth*1000, last_column)
             else:
                 return (-100000 + depth*1000, last_column)
-
+    # Tasapeli, jos lauta täynnä
     if rules.full_board(board.grid):
         return (0, None)
+    # Maksimisyvyys saavutettu
     if depth == 0:
         return heuristic_function(board, last_column, last_row, depth)
 
-    column_order = [3, 2, 4, 1, 5, 0, 6]  # Tutkitaan siirrot keskeltä ulospäin
+    # Tutkitaan siirrot keskeltä ulospäin
+    column_order = [3, 2, 4, 1, 5, 0, 6]
+
+    # Jos tästä tilanteesta on jo löydetty paras siirto, aloitetaan siitä
     board_str = ",".join(",".join(str(number) for number in row) for row in board.grid)
     if board_str in board.dictionary:
         column_order.remove(board.dictionary[board_str])
         column_order.insert(0, board.dictionary[board_str])
+    # Maksimoija
     if current_player == 2:
         value = -99999
         for column in column_order:
-            if time.time()-first>time_limit:
+            # Tarkistetaan aikaraja
+            if time.time()-start>time_limit:
                 return value, None
-            board_copy=copy.deepcopy(board)  # Kopioidaan pelilaudan luokka
-            row=board_copy.place_piece(column, current_player)  # Kokeillaan siirtoa
+            # Kokeillaan siirtoa
+            board_copy=copy.deepcopy(board)
+            row=board_copy.place_piece(column, current_player)  
             if row=="error":   # Ohitetaan, jos sarake täynnä
                 continue
+            # Jos siirto johtaa suoraan voittoon
             if pieces_in_row(board_copy.grid, current_player, 4, column, row):
-                
                 return (100000 - depth*1000, column)
-            new_score=minimax(board_copy, depth-1, 1, first, time_limit, alpha, beta, column, row)[0]
+            
+            # Kutsutaan minimaxia rekursiivisesti
+            new_score=minimax(board_copy, depth-1, 1, start, time_limit, alpha, beta, column, row)[0]
+
             # Saadaan uusi paras arvo ja siirto
             if new_score > value:
                 value = new_score
                 best_column = column
+
+            # Alfa-beeta karsinta
             alpha = max(alpha, value)
-            if alpha >= beta:   #Alfa-beeta karsinta
+            if alpha >= beta:
                 break
-        if best_column is not None:
-            board.dictionary[board_str] = best_column
-        return value, best_column
+        # Talenna paras siirto muistiin
+        #if best_column is not None:
+            #board.dictionary[board_str] = best_column
+        #return value, best_column
+    # Minimoija
     else:
         value = 99999
         for column in column_order:
-            if time.time()-first>time_limit:
+            if time.time()-start>time_limit:
                 return value, None
             board_copy=copy.deepcopy(board)
             row=board_copy.place_piece(column, current_player)
@@ -78,19 +117,33 @@ def minimax(board, depth, current_player, first, time_limit, alpha, beta, last_c
             if pieces_in_row(board_copy.grid, current_player, 4, column, row):
                 
                 return (-100000 + depth*1000, column)
-            new_score=minimax(board_copy, depth-1, 2, first, time_limit, alpha, beta, column, row)[0]
+            new_score=minimax(board_copy, depth-1, 2, start, time_limit, alpha, beta, column, row)[0]
             if new_score<value:
                 value = new_score
                 best_column = column
             beta = min(beta, value)
             if alpha >= beta:
                 break
-        if best_column is not None:
-            board.dictionary[board_str] = best_column
-        return value, best_column
+    if best_column is not None:
+        board.dictionary[board_str] = best_column
+    return value, best_column
 
 def heuristic_function(board, last_column, last_row, depth):
-    # Palauta pelitilanteen hyvyyttä kuvaava pistemäärä
+    '''
+    Arvioi pelilaudan tilanteen heuristiikan avulla. 
+    Lasketaan neljän suorat, kolmen suorat ja kahden suorat.
+    Syvyys vaikuttaa pistemäärään, niin että nopeat voitot antavat enemmän pisteitä
+
+    Parametrit:
+        board: Pelilauta-luokka, jossa nykyinen pelitilanne
+        last_column: Viimeksi pelatun siirron sarake
+        last_row: Viimeksi pelatun siirron rivi
+        depth: Kuinka paljon siirtoyvyyttä jäljellä (jotta nopeammat voitot saa paremmat arvot)
+
+    Palauttaa:
+        tuplen jossa on heuristinen pistearvo ja sarake jonka arvo laskettiin
+    
+    '''
     if pieces_in_row(board.grid, 2, 4, last_column, last_row):
         return (100000 - depth*10000, last_column)
     if pieces_in_row(board.grid, 1, 4, last_column, last_row):
@@ -106,6 +159,18 @@ def heuristic_function(board, last_column, last_row, depth):
     return (0, None)
 
 def pieces_in_row(board, player, size, column, row):
+    '''
+    Etsii muodostaako annettu nappula annetun koon pituisen suoran
+
+    Parametrit:
+        board: Pelilauta-luokka, jossa nykyinen pelitilanne
+        player: Pelaaja, jonka suoria etsitään
+        size: Koko, jonka pituista suoraa etsitään
+        column: Viimeksi pelatun siirron sarake
+        row: Viimeksi pelatun siirron rivi
+    Palauttaa True tai False, riippuen siitä löytyikö suoraa
+
+    '''
     y = len(board)
     x = len(board[0])
 

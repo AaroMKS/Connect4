@@ -1,37 +1,46 @@
 from game.game import Board
 from game import rules
-from ai.ai import iterative
+from ai.ai import iterative, pieces_in_row
 def main():
-    # Määritä pelaaja aloittamaan peli
+    '''
+    Pelin pääsilmukka. Pelaaja 1 on käyttäjä, pelaaja 2 on tekoäly.
+    -Määrittää kenen pelivuoro
+    -Luo pelilaudan
+    -Kysyy käyttäjältä siirtoa ja laittaa sen pelilautaan
+    -Tarkistaa voiton ja tasapelin
+    
+
+    '''
     turn = 1
     game = Board()
     game.print_board()
-    # Aloita loop-jonka aikana pelia pelataan
     while True:
         if turn == 1:
-            move=valid() # Tarkasta onko syötetty liike hyväksyttävä
+            move=valid()
         else:
             move=iterative(game, turn, max_depth=8, time_limit=3.0)[1]
 
-        row=game.place_piece(move, turn)  # Määritä mille riville nappula tippui
-        if row == "error":     # Tarkasta onko sarake täynnä
+        row=game.place_piece(move, turn)
+        if row == "error":
             print("Täynnä")
             continue
         if turn==2:
-            game.print_board()   # Tulosta pelilauta
-        if rules.full_board(game.grid):   # Peli päättyy tasapeliin jos lauta on täynnä
+            game.print_board()
+        if rules.full_board(game.grid):
             print("Tasapeli")
             break
-        if rules.winner(game.grid, move,turn, row):     # Tarkista onko peli voitettu
+        if pieces_in_row(game.grid,turn,4, move, row):
             game.print_board()
             print(f"Voittaja: {turn}")
             break
-        turn = 3 - turn    # Vaihda pelaajan vuoroa
+        turn = 3 - turn
 
 def valid():
+    '''
+    Kysytään käyttäjältä siirtoa ja tarkastetaan onko se validi.
+    '''
     while True:
-        # Kysytään käyttäjältä siirtoa ja tarkastetaan onko se väliltä 0-6 ja onko se numero.
-        # Jos siirto on validi, se palautetaan.
+        
         try:
             move = int(input("Aseta (0-6):"))
             if move > 6 or move < 0:
